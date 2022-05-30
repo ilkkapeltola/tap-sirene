@@ -1,6 +1,7 @@
 """REST client handling, including SIRENEStream base class."""
 
 import requests
+import base64
 from pathlib import Path
 from typing import Any, Dict, Optional, Union, List, Iterable
 
@@ -32,9 +33,21 @@ class SIRENEStream(RESTStream):
     @property
     def authenticator(self) -> BearerTokenAuthenticator:
         """Return a new authenticator object."""
+
+        key = "%s:%s" % (self.config.get("consumer_key"), self.config.get("consumer_secret"))
+        key_bytes = key.encode('ascii')
+        key_b64 = base64.b64encode(key_bytes).decode('utf-8')
+        endpoint = "https://api.insee.fr/token"
+        headers = { 'Authorization' : 'Basic %s' % (key_b64)}
+        data = "grant_type=client_credentials".encode('ascii')
+
+        response = requests.post(endpoint, data=data, headers=headers)
+        jdata = response.json()
+        
+
         return BearerTokenAuthenticator.create_for_stream(
             self,
-            token=self.config.get("auth_token")
+            token=jdata["access_token"]
         )
 
     @property

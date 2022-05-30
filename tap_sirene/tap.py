@@ -7,13 +7,13 @@ from singer_sdk import typing as th  # JSON schema typing helpers
 # TODO: Import your custom stream types here:
 from tap_sirene.streams import (
     SIRENEStream,
-#    SiretStream,
+    SiretStream,
     SirenStream
 )
 # TODO: Compile a list of custom stream types here
 #       OR rewrite discover_streams() below with your custom logic.
 STREAM_TYPES = [
-#    SiretStream,
+    SiretStream,
     SirenStream
 ]
 
@@ -25,10 +25,16 @@ class TapSIRENE(Tap):
     # TODO: Update this section with the actual config values you expect:
     config_jsonschema = th.PropertiesList(
         th.Property(
-            "auth_token",
+            "consumer_key",
             th.StringType,
             required=True,
-            description="The token to authenticate against the API service"
+            description="The consumer key"
+        ),
+        th.Property(
+            "consumer_secret",
+            th.StringType,
+            required=True,
+            description="The consumer secret"
         ),
         th.Property(
             "start_date",
