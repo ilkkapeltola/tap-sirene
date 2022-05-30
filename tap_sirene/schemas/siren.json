@@ -1,0 +1,30 @@
+{
+    "properties": {
+
+        "siren": {"type": "string"},
+        "statutDiffusionUniteLegale": {"type": ["null", "string"]},
+        "dateCreationUniteLegale": {
+            "type": "string",
+            "format": "date-time"
+            },
+        "sigleUniteLegale": {"type": ["null", "string"] },
+        "sexeUniteLegale": {"type": ["null", "string"] },
+        "prenom1UniteLegale":  {"type": ["null", "string"] },
+        "prenom2UniteLegale":  {"type": ["null", "string"] },
+        "prenom3UniteLegale":  {"type": ["null", "string"] },
+        "prenom4UniteLegale":  {"type": ["null", "string"] },
+        "prenomUsuelUniteLegale":  {"type": ["null", "string"] },
+        "pseudonymeUniteLegale":  {"type": ["null", "string"] },
+        "identifiantAssociationUniteLegale":  {"type": ["null", "string"] },
+        "trancheEffectifsUniteLegale":  {"type": ["null", "string"] },
+        "anneeEffectifsUniteLegale":  {"type": ["null", "string"] },
+        "dateDernierTraitementUniteLegale": {
+            "type": "string",
+            "format": "date-time"
+            },
+        "nombrePeriodesUniteLegale": {"type": ["null", "integer"] },
+        "categorieEntreprise": {"type": ["null", "string"] },
+        "anneeCategorieEntreprise": {"type": ["null", "string"] },
+        "periodesUniteLegale": {"type": ["null", "object"] }
+    }    
+}

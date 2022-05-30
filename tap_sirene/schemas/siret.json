@@ -1,0 +1,56 @@
+{
+    "properties": {
+        "siren": {
+            "type": "string"
+        },
+        "nic": {
+            "type": "string"
+        },
+        "siret": {
+            "type": "string"
+        },
+        "statutDiffusionEtablissement": {
+            "type": "string"
+        },
+         "dateCreationEtablissement":{
+            "type": "string",
+            "format": "date"
+        },
+
+         "trancheEffectifsEtablissement": {
+            "type": "string"
+        },
+         "anneeEffectifsEtablissement": {
+            "type": "string"
+        },
+         "activitePrincipaleRegistreMetiersEtablissement": {
+            "type": "string"
+        },
+         "dateDernierTraitementEtablissement": {
+            "type": "string",
+            "format": "date-time"
+        },
+         "etablissementSiege": {
+            "type": "boolean"
+        },
+         "nombrePeriodesEtablissement": {
+            "type": "number"
+        },
+        "dateCreationUniteLegale": {
+            "type": "string",
+            "format": "date"
+        },
+        "uniteLegale": {
+            "type": "object"
+        },
+        "adresseEtablissement": {
+            "type": "object"
+        },
+        "adresse2Etablissement": {
+            "type": "object"
+        },
+        "periodesEtablissement": {
+            "type": "object"
+        }
+    }    
+}
