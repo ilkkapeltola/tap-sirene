@@ -20,6 +20,8 @@ class SiretStream(SIRENEStream):
     records_jsonpath = "$.etablissements[*]"
     primary_keys = ["siret"]
     replication_key = "dateDernierTraitementEtablissement"
+    last_timestamp_path = "$.etablissements[-1].dateDernierTraitementEtablissement"
+    is_timestamp_replication_key = True
     replication_method = "INCREMENTAL"
     # Optionally, you may also use `schema_filepath` in place of `schema`:
     schema_filepath = SCHEMAS_DIR / "siret.json"
@@ -30,7 +32,9 @@ class SirenStream(SIRENEStream):
     path = "/siren"
     primary_keys = ["siren"]
     records_jsonpath = "$.unitesLegales[*]"
+    last_timestamp_path = "$.unitesLegales[-1].dateDernierTraitementUniteLegale"
     replication_key = "dateDernierTraitementUniteLegale"
+    is_timestamp_replication_key = True
     replication_method = "INCREMENTAL"
     # Optionally, you may also use `schema_filepath` in place of `schema`:
     schema_filepath = SCHEMAS_DIR / "siren.json"

@@ -12,24 +12,12 @@
         "statutDiffusionEtablissement": {
             "type": "string"
         },
-         "dateCreationEtablissement":{
-            "type": "string",
-            "format": "date"
-        },
+         "dateCreationEtablissement":{ "anyOf": [ {"type": "string", "format": "date" }, {"type": "null"} ] },
 
-         "trancheEffectifsEtablissement": {
-            "type": "string"
-        },
-         "anneeEffectifsEtablissement": {
-            "type": "string"
-        },
-         "activitePrincipaleRegistreMetiersEtablissement": {
-            "type": "string"
-        },
-         "dateDernierTraitementEtablissement": {
-            "type": "string",
-            "format": "date-time"
-        },
+         "trancheEffectifsEtablissement": { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
+         "anneeEffectifsEtablissement": { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
+         "activitePrincipaleRegistreMetiersEtablissement": { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
+         "dateDernierTraitementEtablissement": { "anyOf": [ {"type": "string", "format": "timestamp" }, {"type": "null"} ] },
          "etablissementSiege": {
             "type": "boolean"
         },
@@ -41,16 +29,21 @@
             "format": "date"
         },
         "uniteLegale": {
-            "type": "object"
+                "anyOf": [
+                    {"type": "object"},
+                    {"type": "null"}
+                ]
         },
-        "adresseEtablissement": {
-            "type": "object"
-        },
-        "adresse2Etablissement": {
-            "type": "object"
-        },
+        "adresseEtablissement": { "anyOf": [ {"type": "object"}, {"type": "null"} ] },
+        "adresse2Etablissement": { "anyOf": [ {"type": "object"}, {"type": "null"} ] },
         "periodesEtablissement": {
-            "type": "object"
+            "type": "array",
+            "items": {
+                "anyOf": [
+                    {"type": "object"},
+                    {"type": "null"}
+                ]
+            }
         }
     }    
 }

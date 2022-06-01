@@ -2,29 +2,37 @@
     "properties": {
 
         "siren": {"type": "string"},
-        "statutDiffusionUniteLegale": {"type": ["null", "string"]},
-        "dateCreationUniteLegale": {
-            "type": "string",
-            "format": "date-time"
-            },
-        "sigleUniteLegale": {"type": ["null", "string"] },
-        "sexeUniteLegale": {"type": ["null", "string"] },
-        "prenom1UniteLegale":  {"type": ["null", "string"] },
-        "prenom2UniteLegale":  {"type": ["null", "string"] },
-        "prenom3UniteLegale":  {"type": ["null", "string"] },
-        "prenom4UniteLegale":  {"type": ["null", "string"] },
-        "prenomUsuelUniteLegale":  {"type": ["null", "string"] },
-        "pseudonymeUniteLegale":  {"type": ["null", "string"] },
-        "identifiantAssociationUniteLegale":  {"type": ["null", "string"] },
-        "trancheEffectifsUniteLegale":  {"type": ["null", "string"] },
-        "anneeEffectifsUniteLegale":  {"type": ["null", "string"] },
+        "statutDiffusionUniteLegale": { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
+        "dateCreationUniteLegale": { "anyOf": [ {"type": "string", "format": "date" }, {"type": "null"} ] },
+        "sigleUniteLegale": { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
+        "sexeUniteLegale": { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
+        "prenom1UniteLegale":  { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
+        "prenom2UniteLegale":  { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
+        "prenom3UniteLegale":  { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
+        "prenom4UniteLegale":  { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
+        "prenomUsuelUniteLegale":  { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
+        "pseudonymeUniteLegale":  { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
+        "identifiantAssociationUniteLegale":  { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
+        "trancheEffectifsUniteLegale":  { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
+        "anneeEffectifsUniteLegale":  { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
         "dateDernierTraitementUniteLegale": {
             "type": "string",
-            "format": "date-time"
+            "format": "timestamp"
             },
-        "nombrePeriodesUniteLegale": {"type": ["null", "integer"] },
-        "categorieEntreprise": {"type": ["null", "string"] },
-        "anneeCategorieEntreprise": {"type": ["null", "string"] },
-        "periodesUniteLegale": {"type": ["null", "object"] }
+        "nombrePeriodesUniteLegale": { "anyOf": [ {"type": "integer"}, {"type": "null"} ] },
+        "categorieEntreprise": { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
+        "anneeCategorieEntreprise": { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
+        "periodesUniteLegale": 
+            {
+                "type": "array",
+                "items": {
+                    "anyOf": [
+                        {"type": "object"},
+                        {"type": "null"}
+                    ]
+            }
+
+        }
+        
     }    
 }

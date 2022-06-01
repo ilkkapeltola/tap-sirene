@@ -11,6 +11,7 @@ from singer_sdk.helpers.jsonpath import extract_jsonpath
 from singer_sdk.streams import RESTStream
 from singer_sdk.authenticators import BearerTokenAuthenticator
 
+import json
 
 SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
 
@@ -20,6 +21,7 @@ class SIRENEStream(RESTStream):
 
     # TODO: Set the API's base URL here:
     url_base = "https://api.insee.fr/entreprises/sirene/V3"
+    first_run = True
 
     # OR use a dynamic url_base:
     # @property
@@ -29,6 +31,8 @@ class SIRENEStream(RESTStream):
 
     #records_jsonpath = self.records_jsonpath  # Or override `parse_response`.
     #next_page_token_jsonpath = "$.next_page"  # Or override `get_next_page_token`.
+
+    # extra_retry_statuses: List[int] = [429, 400]
 
     @property
     def authenticator(self) -> BearerTokenAuthenticator:
@@ -48,6 +52,7 @@ class SIRENEStream(RESTStream):
         return BearerTokenAuthenticator.create_for_stream(
             self,
             token=jdata["access_token"]
+            #token="0521bf46-bc5a-3bc7-93e3-9b29fcd37459"
         )
 
     @property
@@ -68,13 +73,17 @@ class SIRENEStream(RESTStream):
         #       next page. If this is the final page, return "None" to end the
         #       pagination loop.
 
+        #total = next(iter(extract_jsonpath("$.header.total", response.json())),None)
+        #debut = next(iter(extract_jsonpath("$.header.debut", response.json())),None)
+        #nombre = next(iter(extract_jsonpath("$.header.nombre", response.json())),None)
+
         total = next(iter(extract_jsonpath("$.header.total", response.json())),None)
         debut = next(iter(extract_jsonpath("$.header.debut", response.json())),None)
         nombre = next(iter(extract_jsonpath("$.header.nombre", response.json())),None)
 
         if total > debut + nombre:
-            return (debut+nombre)
-
+            last_timestamp = next(iter(extract_jsonpath(self.last_timestamp_path, response.json())),None)
+            return (last_timestamp)
         else:
             return None
 
@@ -85,31 +94,24 @@ class SIRENEStream(RESTStream):
         params: dict = {}
 
         params["nombre"] = "1000"
+        start_date = self.config.get("start_date")
+
+        bookmark_date = self.get_starting_timestamp(context)
         
-        params["q"] = "%s:[%s TO %s]" % (self.replication_key, self.config.get("start_date"), self.config.get("end_date") )
+        if bookmark_date:
+            start_date = bookmark_date.strftime("%Y-%m-%dT%H:%M:%S")
 
+        # overrides after first run
         if next_page_token:
-            params["debut"] = next_page_token
-        if self.replication_key:
-            params["tri"] = self.replication_key
+            start_date = next_page_token
+
+        params["tri"] = self.replication_key
+
+        params["q"] = "%s:[%s TO %s]" % (self.replication_key, start_date, self.config.get("end_date") )
+
         return params
-
-    def prepare_request_payload(
-        self, context: Optional[dict], next_page_token: Optional[Any]
-    ) -> Optional[dict]:
-        """Prepare the data payload for the REST API request.
-
-        By default, no payload will be sent (return None).
-        """
-        # TODO: Delete this method if no payload is required. (Most REST APIs.)
-        return None
 
     def parse_response(self, response: requests.Response) -> Iterable[dict]:
         """Parse the response and return an iterator of result rows."""
         # TODO: Parse response body and return a set of records.
         yield from extract_jsonpath(self.records_jsonpath, input=response.json())
-
-    def post_process(self, row: dict, context: Optional[dict]) -> dict:
-        """As needed, append or transform raw data to match expected structure."""
-        # TODO: Delete this method if not needed.
-        return row
