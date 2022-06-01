@@ -17,7 +17,7 @@
         "anneeEffectifsUniteLegale":  { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
         "dateDernierTraitementUniteLegale": {
             "type": "string",
-            "format": "timestamp"
+            "format": "datetime"
             },
         "nombrePeriodesUniteLegale": { "anyOf": [ {"type": "integer"}, {"type": "null"} ] },
         "categorieEntreprise": { "anyOf": [ {"type": "string"}, {"type": "null"} ] },

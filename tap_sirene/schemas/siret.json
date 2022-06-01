@@ -17,7 +17,7 @@
          "trancheEffectifsEtablissement": { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
          "anneeEffectifsEtablissement": { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
          "activitePrincipaleRegistreMetiersEtablissement": { "anyOf": [ {"type": "string"}, {"type": "null"} ] },
-         "dateDernierTraitementEtablissement": { "anyOf": [ {"type": "string", "format": "timestamp" }, {"type": "null"} ] },
+         "dateDernierTraitementEtablissement": { "anyOf": [ {"type": "string", "format": "datetime" }, {"type": "null"} ] },
          "etablissementSiege": {
             "type": "boolean"
         },

@@ -1,0 +1,12 @@
+{
+    "bookmarks": {
+        "siren": {
+            "replication_key": "dateDernierTraitementUniteLegale",
+            "replication_key_value": "2010-01-01T00:00:01"
+        },
+        "siret": {
+            "replication_key": "dateDernierTraitementEtablissement",
+            "replication_key_value": "2010-01-01T00:00:01"
+        }
+    }
+}
